@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#050914"
+  >
+
+  <meta
+    name="description"
+    content="SCORVEX G8 - Nueva generación del combate futurista"
+  >
+
+  <title>SCORVEX G8</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================================
+       PANTALLA DE CARGA
+  ========================================== -->
+  <div id="boot" class="boot">
+
+    <div class="loader"></div>
+
+    <b>SCORVEX G8</b>
+
+    <span>
+      Cargando sistemas...
+    </span>
+
+  </div>
+
+
+  <!-- =========================================
+       PORTADA
+  ========================================== -->
+  <section id="cover" class="cover">
+
+    <div class="cover-glow"></div>
+
+    <!-- LOGO PRINCIPAL -->
+    <img
+      src="assets/scorvex-g8.png"
+      alt="SCORVEX G8"
+      class="scorvex-logo"
+    >
+
+    <div class="cover-content">
+
+      <h1>
+        SCORVEX G8
+      </h1>
+
+      <p>
+        LA NUEVA GENERACIÓN DEL COMBATE FUTURISTA
+      </p>
+
+      <button
+        id="startBtn"
+        class="primary big"
+      >
+        ⚡ INICIAR
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================
+       APLICACIÓN PRINCIPAL
+  ========================================== -->
+  <main id="app" hidden>
+
+    <!-- =======================================
+         BARRA SUPERIOR
+    ======================================== -->
+    <header class="topbar">
+
+      <div class="brand">
+
+        <img
+          src="assets/scorvex-g8.png"
+          alt="SCORVEX"
+        >
+
+        <strong>
+          SCORVEX
+          <i>G8</i>
+        </strong>
+
+      </div>
+
+
+      <!-- RECURSOS -->
+      <div class="resources">
+
+        <span>
+          🪙
+          <b id="coins">0</b>
+        </span>
+
+        <span>
+          💎
+          <b id="crystals">0</b>
+        </span>
+
+        <span>
+          ⭐
+          <b id="level">1</b>
+        </span>
+
+      </div>
+
+
+      <!-- PAUSA -->
+      <button
+        id="pauseBtn"
+        class="icon-btn"
+      >
+        Ⅱ
+      </button>
+
+    </header>
+
+
+    <!-- =======================================
+         MENÚ PRINCIPAL
+    ======================================== -->
+    <section id="menu" class="menu">
+
+      <!-- PANEL PRINCIPAL -->
+      <div class="hero-panel">
+
+        <div>
+
+          <span class="eyebrow">
+            OPERACIÓN G8
+          </span>
+
+          <h2>
+            Entra al sector y supera la amenaza.
+          </h2>
+
+          <p>
+            Combate, mejora tu equipamiento y
+            completa misiones.
+          </p>
+
+        </div>
+
+
+        <button
+          id="playBtn"
+          class="primary"
+        >
+          ▶ JUGAR
+        </button>
+
+      </div>
+
+
+      <!-- =====================================
+           OPCIONES PRINCIPALES
+      ====================================== -->
+      <div class="menu-grid">
+
+        <button data-panel="inventory">
+          🎒 Inventario
+        </button>
+
+        <button data-panel="shop">
+          🛒 Tienda
+        </button>
+
+        <button data-panel="missions">
+          🎯 Misiones
+        </button>
+
+        <button data-panel="achievements">
+          🏆 Logros
+        </button>
+
+        <button data-panel="characters">
+          🧍 Personaje
+        </button>
+
+        <button data-panel="settings">
+          ⚙️ Ajustes
+        </button>
+
+      </div>
+
+
+      <!-- =====================================
+           INFORMACIÓN DEL ARMA
+      ====================================== -->
+      <div class="panel-card">
+
+        <b id="weaponName">
+          Arma
+        </b>
+
+        <span id="weaponStats">
+          —
+        </span>
+
+
+        <!-- BARRA XP -->
+        <div class="xp">
+
+          <i id="xpBar"></i>
+
+        </div>
+
+
+        <small id="xpText">
+          0 / 100 XP
+        </small>
+
+      </div>
+
+    </section>
+
+
+    <!-- =======================================
+         PANTALLA DEL JUEGO
+    ======================================== -->
+    <section
+      id="game"
+      class="game"
+      hidden
+    >
+
+      <!-- =====================================
+           HUD
+      ====================================== -->
+      <div class="hud">
+
+        <!-- VIDA -->
+        <div class="bar">
+
+          <span>
+            ❤️
+            <b id="hpText">
+              100/100
+            </b>
+          </span>
+
+          <i id="hpBar"></i>
+
+        </div>
+
+
+        <!-- ENERGÍA -->
+        <div class="bar energy">
+
+          <span>
+            ⚡
+            <b id="energyText">
+              100/100
+            </b>
+          </span>
+
+          <i id="energyBar"></i>
+
+        </div>
+
+
+        <!-- INFORMACIÓN DE COMBATE -->
+        <div class="combat-info">
+
+          <span>
+            🌊 Oleada
+            <b id="wave">
+              1
+            </b>
+          </span>
+
+          <span>
+            🎯
+            <b id="score">
+              0
+            </b>
+          </span>
+
+          <span>
+            👾
+            <b id="enemyCount">
+              0
+            </b>
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================
+           CANVAS DEL JUEGO
+      ====================================== -->
+      <canvas
+        id="gameCanvas"
+      ></canvas>
+
+
+      <!-- =====================================
+           CONTROLES
+      ====================================== -->
+      <div class="game-controls">
+
+        <button
+          id="abilityBtn"
+          class="control"
+          title="Habilidad"
+        >
+          ⚡
+        </button>
+
+        <button
+          id="medkitBtn"
+          class="control"
+          title="Medkit"
+        >
+          ❤️
+        </button>
+
+        <button
+          id="energyBtn"
+          class="control"
+          title="Energía"
+        >
+          🔋
+        </button>
+
+      </div>
+
+
+      <!-- AYUDA -->
+      <div class="game-tip">
+
+        WASD / flechas · mouse/tap para apuntar
+        · clic para disparar
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================================
+       MODAL
+  ========================================== -->
+  <div
+    id="modal"
+    class="modal"
+    hidden
+  >
+
+    <div class="modal-box">
+
+      <button
+        id="closeModal"
+        class="close"
+      >
+        ×
+      </button>
+
+      <div id="modalContent"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================================
+       NOTIFICACIONES
+  ========================================== -->
+  <div
+    id="toast"
+    class="toast"
+  ></div>
+
+
+  <!-- =========================================
+       SISTEMA G8
+  ========================================== -->
+
+  <!-- GUARDADO -->
+  <script src="save-g8.js"></script>
+
+  <!-- ARMAS -->
+  <script src="weapons-g8.js"></script>
+
+  <!-- HABILIDADES -->
+  <script src="abilities-g8.js"></script>
+
+  <!-- PERSONAJES -->
+  <script src="characters-g8.js"></script>
+
+  <!-- TIENDA -->
+  <script src="shop-g8.js"></script>
+
+  <!-- AUDIO -->
+  <script src="audio-g8.js"></script>
+
+  <!-- ENEMIGOS -->
+  <script src="enemies-g8.js"></script>
+
+  <!-- IA -->
+  <script src="ai-g8.js"></script>
+
+  <!-- JEFES -->
+  <script src="bosses-g8.js"></script>
+
+  <!-- MISIONES -->
+  <script src="missions-g8.js"></script>
+
+  <!-- INVENTARIO -->
+  <script src="inventory-g8.js"></script>
+
+  <!-- PROGRESIÓN -->
+  <script src="progression-g8.js"></script>
+
+  <!-- LOGROS -->
+  <script src="achievements-g8.js"></script>
+
+  <!-- MAPA -->
+  <script src="map-g8.js"></script>
+
+  <!-- EVENTOS -->
+  <script src="events-g8.js"></script>
+
+  <!-- COMBATE -->
+  <script src="combat-g8.js"></script>
+
+  <!-- JUGADOR -->
+  <script src="player-g8.js"></script>
+
+  <!-- MOTOR PRINCIPAL -->
+  <script src="game-g8.js"></script>
+
+</body>
+</html>
